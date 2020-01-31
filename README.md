@@ -1,2 +1,2 @@
-# LoganVoisin.gethub.io
+# LoganVoisin.github.io
 A place for all
