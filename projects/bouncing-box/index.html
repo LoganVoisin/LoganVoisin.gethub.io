@@ -66,13 +66,14 @@
 			var positionX = 0;
 			var points = 0;
 			var speed = 5;
-			var boardWidth = 400;
+			var boardWidth = jQuery(window).width();
 			var speedY = 5;
 			var positionY = 0;
-			var boardHeight = jQuery(window).height(400);
+			var boardHeight = jQuery(window).height();
 			var randNumber = Math.random() * 100;
 			var colorStr = "rgb(255, 255, 255)";
 			box.css('background-color' , colorStr);
+			var totalBoxClicks;
 
 			
 			/* 
@@ -96,7 +97,7 @@
 				if (0 > positionY) {
 					speedY = -speedY;
 				}
-				if (positionY > 400) {
+				if (positionY > boardHeight) {
 					speedY = -speedY;
 				}
 			};
@@ -106,16 +107,31 @@
 			it should increase the points total, increase the speed, and move the box to
 			the left side of the screen.
 			*/
+			
+			function threeBoxClicks(){
+				if (totalBoxClicks > 3)
+		        speed = speed + 5;
+				speedY = speedY +5;
+			}
+			
+			
+			
+				function getRandomColor(){
+					var randomNumberBetween0and256 = Math.random() * 256;
+					return Math.floor(randomNumberBetween0and256);
+				}
 			function handleBoxClick() {
-				positionX =  Math.random() * 100;
-				positionY =  Math.random() * 100;
+				positionY =  Math.random() * boardHeight;
+				positionX =  Math.random() * boardWidth;
 			
 				points = points + 1;
 				changeBoxText(points);
-				speed = speed + 5;
-				colorStr = rgb()
+				colorStr = "rgb(" + getRandomColor()+"," + getRandomColor()+","+ getRandomColor()+")";
+				box.css('background-color' , colorStr);
+				totalBoxClicks + 1;
+				threeBoxClicks();
 
-
+				
 			};
 		})();
 	</script>
