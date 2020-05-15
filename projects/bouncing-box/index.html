@@ -42,10 +42,11 @@
 			var boardWidth = board.width();// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+			var interval = setInterval(update, 50);
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
+			board.on('click', handleBoardClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
 			function moveBoxTo(newPositionX, newPositionY) {
@@ -74,6 +75,7 @@
 			var colorStr = "rgb(255, 255, 255)";
 			box.css('background-color' , colorStr);
 			var totalBoxClicks;
+			var boardClicks = 0;
 
 			
 			/* 
@@ -109,12 +111,25 @@
 			*/
 			
 			function threeBoxClicks(){
-				if (totalBoxClicks > 3)
+				if (totalBoxClicks > 3){
 		        speed = speed + 5;
 				speedY = speedY +5;
+			   }
 			}
 			
+			function handleBoardClick(){
+				boardClicks = boardClicks + 1;
+				console.log(boardClicks);
+				if (boardClicks === 10){
+					endGame();
+				}
+			}
 			
+			function endGame() {
+    clearInterval(interval);
+      }
+      
+      
 			
 				function getRandomColor(){
 					var randomNumberBetween0and256 = Math.random() * 256;
@@ -123,13 +138,12 @@
 			function handleBoxClick() {
 				positionY =  Math.random() * boardHeight;
 				positionX =  Math.random() * boardWidth;
-			
+			    colorStr = "rgb(" + getRandomColor()+"," + getRandomColor()+","+ getRandomColor()+")";
 				points = points + 1;
 				changeBoxText(points);
-				colorStr = "rgb(" + getRandomColor()+"," + getRandomColor()+","+ getRandomColor()+")";
 				box.css('background-color' , colorStr);
 				totalBoxClicks + 1;
-				threeBoxClicks();
+			
 
 				
 			};
