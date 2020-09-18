@@ -1,0 +1,18 @@
+How is the jQuery file being loaded into this project: direct download or Content Delivery Network (CDN)?
+
+Answer: CDN
+
+If you load the index.js file before the jquery file our program doesn't work. Why? Open-
+the preview in a new tab and look at the console to help you find out why.
+
+Answer: Index.js (or in my case Javascript.js) needs jQuery to work. So we lode jQuery first. c:
+
+In your opinion, what are the pros of refactoring your HTML, CSS, and JavaScript into separate files? What are the cons?
+
+Answer: The pros to this are as follows: 1. It's waser to change things exspecialy when things get big 2. It cleans up the code 3. it makes it easer to read and under stand
+Cons: 1. It takes a while to do 2. for smaller and shot projects (under 50 lines) its not worth it to me.
+
+In your opinion, what are the pros of refactoring your JavaScript code into separate functions? What are the cons?
+
+Answer: I see many pros for doing this mainly the ones that I have listed above, but to add to that list I'd say that the ability to find a spisfic part of a funtion and change it is nice.
+Cons. The same that I have listed above for the html and css.
