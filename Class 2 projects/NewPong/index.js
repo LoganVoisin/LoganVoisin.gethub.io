@@ -237,6 +237,7 @@ function runProgram(){
     ball.speedY = 1;
     ball.x = 210;
     ball.y = 210;
+    BallStartPosition()
     console.log("New Game");
  }
  //When You dunck on an enemy
@@ -263,6 +264,22 @@ function runProgram(){
  {
     points2 += 1;
     $("#score2").text(points2);
+ }
+ //Changes ball starting Pos
+ function BallStartPosition()
+ {
+   var randomNum = Math.floor(Math.random()*2)
+   if(randomNum == 0)
+   {
+       ball.speedX = -ball.speedX;
+       ball.speedY = -ball.speedY;
+   }
+   if(randomNum == 1)
+   {
+       ball.speedX = Math.abs(ball.speedX);
+       ball.speedY = Math.abs(ball.speedY);
+   }
+   console.log(randomNum);
  }
  //Simply ends the game... nice
  function GameOver()
