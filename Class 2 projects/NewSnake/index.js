@@ -19,6 +19,7 @@ function runProgram(){
     "G":71,
   }
   //Other vars
+  var buttonPressed = false;
   var goingLeft = false;
   var goingRight = false;
   var goingUp = false;
@@ -83,8 +84,9 @@ var tail = snakeArray[snakeArray.length - 1]
     repositionSnake();
     NoNoZone(head);
     //fun names
-   // Cannibalism();
+    Cannibalism();
     eatApple();
+    buttonPressed = false;
   }
   
   /* 
@@ -94,33 +96,37 @@ var tail = snakeArray[snakeArray.length - 1]
   {
 
     //Snake brain controles
-    if(event.which === KEY.LEFT && !goingRight)
+    if(event.which === KEY.LEFT && !goingRight && !buttonPressed)
     {
         goingLeft = true;
+        buttonPressed = true;
         head.speedY = 0;
         head.speedX = -speed;
         goingUp = false;
         goingDown = false;
     }
-    if(event.which === KEY.RIGHT && !goingLeft)
+    if(event.which === KEY.RIGHT && !goingLeft && !buttonPressed)
     {
         goingRight = true;
+        buttonPressed = true;
         head.speedY = 0;
         head.speedX = speed;
         goingUp = false;
         goingDown = false;
     }
-    if(event.which === KEY.UP && !goingDown)
+    if(event.which === KEY.UP && !goingDown && !buttonPressed)
     {
         goingUp = true;
+        buttonPressed = true;
         head.speedX = 0;
         head.speedY = -speed;
         goingLeft = false;
         goingRight = false;
     }
-    if (event.which === KEY.DOWN && !goingUp)
+    if (event.which === KEY.DOWN && !goingUp && !buttonPressed)
     {
         goingDown = true;
+        buttonPressed = true;
         head.speedX = 0;
         head.speedY = speed;
         goingLeft = false;
@@ -147,7 +153,21 @@ function repositionSnake()
     head.x += head.speedX;
     $("#Snake").css("top", head.y);
     $("#Snake").css("left", head.x);
-    console.log(head.x, head.y, "head");
+ }
+
+ //if the snake collides with it's self
+ function Cannibalism()
+ {
+    for(var i = 0; i < snakeArray.length; i++)
+    {
+        if(DoCollide(head, snakeArray[i]) && snakeArray[i] != snakeArray[0])
+        {
+           endGame();
+           //For "debug" reasons, also the amime is pretty good but the manga is better
+            console.log("Berserk is pretty cool");
+            break;
+        }
+    }
  }
  
 // repositions apple
@@ -183,12 +203,9 @@ function DoCollide(obj1, obj2)
     obj2.left = obj2.x;
     obj2.top = obj2.y;
     //if the objs collide
-    if(obj1.right === obj2.right && obj1.left === obj2.left && obj1.botom === obj2.botom && obj1.top === obj2.top)//Could this be the problem?
+    if(obj1.right === obj2.right && obj1.left === obj2.left && obj1.botom === obj2.botom && obj1.top === obj2.top)
     {
-        //For debug reasons, also the amime is pretty good but the manga is better
-        console.log("Berserk is pretty cool");
         return true;
-        
     }
 }
 //WOW
@@ -211,7 +228,6 @@ function AddPoints()
 //Hmmm
 function addToBody()
 {
-    //debugger;
     var newId = "Snake" + snakeArray.length;
     var $div = $("<div>").appendTo("#board")
         .addClass("Snake")
@@ -222,7 +238,6 @@ function addToBody()
     $div.y = head.y;
     var body = MakeBody("#" + newId, $div.x, $div.y ,20 ,20);
     snakeArray.push(body);
-    console.log($div.x, $div.y);
 }
 //gives back a number that is a mulitiple of twenty
 function MulitipleOf20()
@@ -252,19 +267,34 @@ function MulitipleOf20()
         endGame();
     }
  }
-  
- //if the snake collides with it's self
- /*function Cannibalism()
+ //restarts the game: snake size and pos, score
+ /*function Restart()
  {
-    if(DoCollide(head, snakeArray[1]))
+    console.log("It worked");
+    points = 0;
+    head.x = 100;
+    head.y = 100;
+    head.speedX = 0;
+    head.speedY = 0;
+    $("#Snake").css("top", head.y);
+    $("#Snake").css("left", head.x);
+    //Clears snake body
+    for(var i = 0; i < snakeArray.length; i++)
     {
-        endGame();
+        if(snakeArray[i] != snakeArray[0])
+        {
+            snakeArray.pop();
+        }
     }
+    //starts the timer again
+    interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);
+    //gets rid of game over message
+    $("#GameOver").css("opacity", 0);
  }*/
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
-
+    $("#GameOver").css("opacity", 100);
     // turn off event handlers
     $(document).off();
   }
