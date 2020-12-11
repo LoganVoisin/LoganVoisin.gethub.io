@@ -1,0 +1,60 @@
+
+body {
+  background-color: black;
+}
+
+#board {
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid white;
+  background-color: black;
+  position: relative;
+}
+
+.square {
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  position: absolute;
+}
+.wall {
+  background-color: rgb(71, 71, 194);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.gate {
+  background-color: rgb(211, 7, 7);
+}
+
+.pellet {
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: gold;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+ .redGhost {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 1000;
+  background-color: red;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.pacman{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 1000;
+  background-image: url("img/pacman.png");
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%)
+}
+h1 {
+  color: white;
+}
